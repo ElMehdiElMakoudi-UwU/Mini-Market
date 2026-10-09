@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>لوحة التحكم — ميني ماركت الشدادي</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#4e2a18">
+  <link rel="icon" href="/img/logo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    body { padding-bottom: 40px; }
+    .admin-head { background: var(--wood-dark); color: #fff; }
+    .admin-head .header-inner { justify-content: space-between; }
+    .admin-head .brand-text b { color: #fff; }
+    .admin-head .brand-text { display: flex !important; }
+    .admin-head .icon-btn { color: var(--ink); }
+    .tabs { display: flex; gap: 6px; overflow-x: auto; max-width: 1200px; margin: 0 auto; padding: 12px 16px 0; scrollbar-width: none; }
+    .tab { border: 0; background: transparent; padding: 10px 16px; border-radius: 12px 12px 0 0; font-weight: 700; color: var(--muted); white-space: nowrap; position: relative; }
+    .tab.active { background: var(--paper); color: var(--wood-dark); }
+    .tab .dot { background: var(--red); color: #fff; border-radius: 99px; font-size: 11px; padding: 1px 7px; margin-inline-start: 4px; }
+    .panel { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+    .panel-inner { background: var(--paper); border-radius: 0 0 16px 16px; padding: 16px; min-height: 60vh; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 14px; }
+    .stat { background: var(--cream); border: 1px solid var(--line); border-radius: 14px; padding: 12px; }
+    .stat small { color: var(--muted); font-weight: 700; }
+    .stat b { display: block; font-size: 24px; color: var(--wood-dark); }
+    .filters { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+    .filters .cat { font-size: 14px; padding: 6px 12px; }
+    .orders { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); }
+    .order { border: 1px solid var(--line); border-radius: 16px; padding: 14px; background: var(--paper); display: grid; gap: 10px; border-inline-start: 5px solid var(--gold); }
+    .order.s-new { border-inline-start-color: var(--red); background: #fffaf8; }
+    .order.s-preparing { border-inline-start-color: var(--gold); }
+    .order.s-delivering { border-inline-start-color: #2d7fd3; }
+    .order.s-delivered { border-inline-start-color: var(--green); opacity: .85; }
+    .order.s-cancelled { border-inline-start-color: #999; opacity: .6; }
+    .order-top { display: flex; justify-content: space-between; align-items: center; }
+    .order-top b { font-size: 20px; }
+    .pill { font-size: 12px; font-weight: 800; padding: 3px 10px; border-radius: 99px; background: var(--gold-soft); color: var(--wood-dark); }
+    .order ul { margin: 0; padding: 0; list-style: none; font-size: 14px; border-top: 1px dashed var(--line); border-bottom: 1px dashed var(--line); padding: 8px 0; }
+    .order li { display: flex; justify-content: space-between; gap: 8px; padding: 2px 0; }
+    .cust { font-size: 14px; display: grid; gap: 2px; }
+    .row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+    .row .btn { padding: 8px 12px; font-size: 14px; border-radius: 10px; }
+    .row select { border: 1px solid var(--line); border-radius: 10px; padding: 8px; flex: 1; min-width: 120px; background: var(--paper); }
+    .btn-blue { background: #2d7fd3; color: #fff; }
+    .btn-green { background: var(--green); color: #fff; }
+    .btn-red { background: transparent; color: var(--red); border: 1px solid #f0c9c4; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td { padding: 10px 8px; border-bottom: 1px solid var(--line); text-align: start; vertical-align: middle; }
+    th { color: var(--muted); font-size: 13px; }
+    td .thumb { width: 44px; height: 44px; border-radius: 8px; background: var(--gold-soft); display: flex; align-items: center; justify-content: center; font-size: 22px; overflow: hidden; }
+    td .thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .table-wrap { overflow-x: auto; }
+    .toolbar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; align-items: center; }
+    .toolbar input, .toolbar select { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; background: var(--paper); }
+    .toolbar input { flex: 1; min-width: 180px; }
+    .switch { appearance: none; width: 42px; height: 24px; background: #ccc; border-radius: 99px; position: relative; cursor: pointer; transition: background .15s; flex-shrink: 0; }
+    .switch::after { content: ''; position: absolute; top: 3px; inset-inline-start: 3px; width: 18px; height: 18px; border-radius: 50%; background: #fff; transition: inset-inline-start .15s; }
+    .switch:checked { background: var(--green); }
+    .switch:checked::after { inset-inline-start: 21px; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
+    .login { max-width: 360px; margin: 12vh auto; background: var(--paper); padding: 24px; border-radius: 20px; box-shadow: var(--shadow); text-align: center; }
+    .login img { width: 90px; height: 90px; border-radius: 20px; margin: 0 auto 12px; }
+    .login h1 { font-family: var(--display); font-weight: 400; color: var(--wood-dark); margin: 0 0 16px; }
+    .modal-card { max-height: 92vh; overflow-y: auto; width: min(520px, 100%); }
+    @media (max-width: 600px) { .orders { grid-template-columns: 1fr; } .grid2 { grid-template-columns: 1fr; } .hide-sm { display: none; } }
+    @media print {
+      body * { visibility: hidden; }
+      .printing, .printing * { visibility: visible; }
+      .printing { position: absolute; inset: 0; border: 0; }
+      .printing .row { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Login -->
+  <div id="loginView" class="hidden">
+    <form class="login" id="loginForm">
+      <img src="/img/logo.jpg" alt="">
+      <h1>لوحة التحكم</h1>
+      <div class="field"><input type="password" name="password" placeholder="كلمة السر" required autofocus></div>
+      <p class="error hidden" id="loginError"></p>
+      <button class="btn btn-primary btn-block">دخول</button>
+    </form>
+  </div>
+
+  <!-- App -->
+  <div id="appView" class="hidden">
+    <header class="admin-head">
+      <div class="header-inner">
+        <a class="brand" href="/" target="_blank">
+          <img src="/img/logo.jpg" alt="">
+          <span class="brand-text"><b>لوحة التحكم</b><small>ميني ماركت الشدادي</small></span>
+        </a>
+        <div class="row">
+          <label class="row" style="color:var(--gold-soft);font-weight:700;font-size:14px">
+            <input type="checkbox" class="switch" id="acceptingToggle"> <span id="acceptingLabel"></span>
+          </label>
+          <button class="icon-btn" id="logoutBtn">خروج</button>
+        </div>
+      </div>
+    </header>
+
+    <nav class="tabs">
+      <button class="tab active" data-tab="orders">📦 الطلبات <span class="dot hidden" id="newDot"></span></button>
+      <button class="tab" data-tab="products">🏷️ المنتجات</button>
+      <button class="tab" data-tab="categories">🗂️ الأصناف</button>
+      <button class="tab" data-tab="drivers">🛵 الموصّلين</button>
+      <button class="tab" data-tab="settings">⚙️ الإعدادات</button>
+    </nav>
+
+    <section class="panel"><div class="panel-inner" id="panel"></div></section>
+  </div>
+
+  <div class="modal hidden" id="modal">
+    <div class="overlay open" data-close-modal></div>
+    <div class="modal-card" style="z-index:1" id="modalCard"></div>
+  </div>
+  <div class="toast" id="toast"></div>
+
+  <script src="/admin/admin.js"></script>
+</body>
+</html>
