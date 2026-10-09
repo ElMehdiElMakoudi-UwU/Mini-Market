@@ -300,6 +300,29 @@
     $('#trackResult').innerHTML = `<p style="margin:14px 0 0"><b>#${o.id}</b> · ${money(o.total)}</p>` + html;
   }
 
+  // ---------- Install as app (PWA) ----------
+  let installPrompt = null; // Android/Chrome install event, kept until the user taps "Install"
+  const standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+  const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  function renderInstall() {
+    const show = !standalone && !store.get('installDismissed', false) && (installPrompt || isIos);
+    $('#installBar').classList.toggle('hidden', !show);
+    if (!show) return;
+    $('#installText').textContent = installPrompt ? t('installText') : t('installIos');
+    $('#installBtn').classList.toggle('hidden', !installPrompt);
+  }
+  addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); installPrompt = e; renderInstall(); });
+  addEventListener('appinstalled', () => { installPrompt = null; renderInstall(); });
+  $('#installBtn').onclick = async () => {
+    if (!installPrompt) return;
+    installPrompt.prompt();
+    await installPrompt.userChoice;
+    installPrompt = null;
+    renderInstall();
+  };
+  $('#installClose').onclick = () => { store.set('installDismissed', true); renderInstall(); };
+  if ('serviceWorker' in navigator) addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
+
   // ---------- Misc ----------
   let toastTimer;
   function toast(msg) {
@@ -312,6 +335,7 @@
 
   function renderAll() {
     applyLang();
+    renderInstall();
     renderHero();
     renderCats();
     renderProducts();

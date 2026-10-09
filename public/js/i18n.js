@@ -28,6 +28,8 @@ window.I18N = {
     err_missing_fields: 'المرجو ملء جميع الحقول', err_invalid_phone: 'رقم الهاتف غير صحيح',
     err_min_order: 'الحد الأدنى للطلب لم يتحقق', err_closed: 'المتجر مغلق حالياً', err_unavailable: 'أحد المنتجات لم يعد متوفراً',
     err_too_many_orders: 'طلبات كثيرة، حاول بعد قليل', err_generic: 'وقع خطأ، حاول مرة أخرى',
+    installText: 'ثبّت تطبيق الشدادي على هاتفك وطلب بضغطة وحدة', installBtn: 'تثبيت',
+    installIos: 'لتثبيت التطبيق: اضغط على زر المشاركة ⬆️ ثم «إضافة إلى الشاشة الرئيسية»',
   },
   fr: {
     topbar: '🚚 Livraison à domicile à Ksar El Kebir — Paiement à la livraison',
@@ -58,5 +60,7 @@ window.I18N = {
     err_missing_fields: 'Veuillez remplir tous les champs', err_invalid_phone: 'Numéro de téléphone invalide',
     err_min_order: 'Montant minimum non atteint', err_closed: 'Boutique fermée pour le moment', err_unavailable: 'Un produit n\'est plus disponible',
     err_too_many_orders: 'Trop de commandes, réessayez plus tard', err_generic: 'Une erreur est survenue, réessayez',
+    installText: 'Installez l\'app Cheddadi sur votre téléphone', installBtn: 'Installer',
+    installIos: 'Pour installer : touchez Partager ⬆️ puis « Sur l\'écran d\'accueil »',
   },
 };

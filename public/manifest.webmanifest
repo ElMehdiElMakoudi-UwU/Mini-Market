@@ -1,0 +1,20 @@
+{
+  "name": "ميني ماركت الشدادي",
+  "short_name": "الشدادي",
+  "description": "Mini Market Cheddadi — Ksar El Kebir. Commandez vos courses en ligne, paiement à la livraison.",
+  "lang": "ar",
+  "dir": "rtl",
+  "id": "/",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fbf7f0",
+  "theme_color": "#4e2a18",
+  "categories": ["shopping", "food"],
+  "icons": [
+    { "src": "/img/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/img/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/img/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

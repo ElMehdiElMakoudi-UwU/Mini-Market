@@ -7,6 +7,12 @@
   <meta name="description" content="Mini Market Cheddadi — Ksar El Kebir. Commandez vos courses en ligne, livraison à domicile, paiement à la livraison.">
   <meta name="theme-color" content="#4e2a18">
   <link rel="icon" href="/img/logo.jpg">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="الشدادي">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -48,6 +54,12 @@
     </div>
   </section>
   <div class="closed-banner hidden" id="closedBanner" data-i18n="closed"></div>
+  <div class="install-bar hidden" id="installBar">
+    <img src="/img/icon-192.png" alt="">
+    <span id="installText"></span>
+    <button class="btn btn-primary" id="installBtn" data-i18n="installBtn"></button>
+    <button class="icon-btn" id="installClose" aria-label="close">✕</button>
+  </div>
 
   <div class="cats-wrap"><nav class="cats" id="cats"></nav></div>
 
@@ -95,7 +107,7 @@
   <!-- Track modal -->
   <div class="modal hidden" id="trackModal">
     <div class="overlay open" data-close></div>
-    <div class="modal-card" style="z-index:1">
+    <div class="modal-card">
       <h2 data-i18n="trackTitle"></h2>
       <form id="trackForm">
         <div class="field"><label data-i18n="orderNo"></label><input name="id" inputmode="numeric" required></div>
