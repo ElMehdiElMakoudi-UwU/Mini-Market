@@ -47,7 +47,18 @@ On first run the database (`data/store.db`) is created with the categories from 
 2. **Drivers**: add the delivery driver(s).
 3. **Products**: replace the sample prices and add photos.
 
-## Deploying
+## Deploying on Coolify (Dockerfile)
+
+1. **New Resource → Public/Private Repository**, pick this repo, branch `main`, and set **Build Pack** to **Dockerfile**.
+2. **Ports Exposes:** `3000`.
+3. **Environment variables:** `ADMIN_PASSWORD` (a strong password) and `SESSION_SECRET` (a long random string, e.g. from `openssl rand -hex 32`).
+4. **Persistent Storage**: add two **Volume Mounts** (not Directory Mounts, because the container runs as the `node` user):
+   - destination `/app/data` for the database
+   - destination `/app/uploads` for product photos
+5. **Domains:** e.g. `https://cheddadi.example.com`. Coolify issues the HTTPS certificate.
+6. Click **Deploy**. Health check: `GET /health`.
+
+## Other hosts
 
 This is a plain Node.js app with SQLite. It needs a host with a **persistent disk**, because `data/` (the database) and `uploads/` (product photos) must survive restarts:
 - A small VPS (Hetzner, DigitalOcean, Contabo, ~5 €/month) with `pm2` and Nginx + Let's Encrypt for HTTPS, or
