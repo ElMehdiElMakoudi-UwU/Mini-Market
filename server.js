@@ -9,7 +9,7 @@ const { db, getSettings } = require('./db');
 const PORT = process.env.PORT || 3000;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'cheddadi2026';
 const SECRET = process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex');
-const UPLOAD_DIR = path.join(__dirname, 'uploads');
+const UPLOAD_DIR = process.env.UPLOAD_DIR || path.join(__dirname, 'uploads');
 fs.mkdirSync(UPLOAD_DIR, { recursive: true });
 
 if (!process.env.ADMIN_PASSWORD) {
@@ -17,6 +17,8 @@ if (!process.env.ADMIN_PASSWORD) {
 }
 
 const app = express();
+app.set('trust proxy', 1); // behind Coolify's reverse proxy: real client IPs + HTTPS detection
+app.get('/health', (req, res) => res.json({ ok: true }));
 app.use(express.json({ limit: '200kb' }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(UPLOAD_DIR, { maxAge: '7d' }));
